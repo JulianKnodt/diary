@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"path/filepath"
@@ -16,7 +15,6 @@ func IsInDiary() bool {
 		if dir == "/" {
 			return false
 		}
-		fmt.Println(filepath.Join(dir, ".diary"))
 		f, err := os.Stat(filepath.Join(dir, ".diary"))
 		if f != nil && f.IsDir() {
 			return true
@@ -25,4 +23,24 @@ func IsInDiary() bool {
 			log.Fatal(err)
 		}
 	}
+}
+
+func DiaryPath() string {
+	for {
+		dir, err := os.Getwd()
+		if err != nil {
+			log.Fatal(err)
+		}
+		if dir == "/" {
+			return ""
+		}
+		f, err := os.Stat(filepath.Join(dir, ".diary"))
+		if f != nil && f.IsDir() {
+			return filepath.Join(dir, ".diary")
+		}
+		if err = os.Chdir(".."); err != nil {
+			log.Fatal(err)
+		}
+	}
+
 }

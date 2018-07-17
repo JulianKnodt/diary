@@ -4,11 +4,12 @@ import (
 	"bytes"
 	"diary/utils"
 	"flag"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
+	"path"
+	"time"
 )
 
 func check(err error) {
@@ -45,8 +46,10 @@ func Entry(args []string) {
 	if len(*name) == 0 {
 		*name = string(firstLine(entry))
 	}
-	fmt.Println(*name)
-	fmt.Println(string(entry))
+
+	now := time.Now().Format(time.ANSIC)
+	path := path.Join(utils.DiaryPath(), "entries", now)
+	check(ioutil.WriteFile(path, entry, 0666))
 
 	check(os.Remove(f.Name()))
 }

@@ -19,7 +19,9 @@ func main() {
 	case "edit":
 		// edit()
 	case "search":
-		// search()
+	// search()
+	case "list":
+		// list()
 	case "help":
 		fallthrough
 	default:
