@@ -1,14 +1,14 @@
 package entry
 
 import (
+	"bytes"
 	"diary/utils"
 	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
+	"os"
 	"os/exec"
-  "os"
-  "bytes"
 )
 
 func check(err error) {
@@ -18,10 +18,10 @@ func check(err error) {
 }
 
 func firstLine(s []byte) []byte {
-  if index := bytes.IndexRune(s, '\n'); index != -1 {
-    return s[:index]
-  }
-  return s
+	if index := bytes.IndexRune(s, '\n'); index != -1 {
+		return s[:index]
+	}
+	return s
 }
 
 func Entry(args []string) {
@@ -34,19 +34,19 @@ func Entry(args []string) {
 	check(err)
 
 	cmd := exec.Command("vim", f.Name())
-  cmd.Stdin = os.Stdin
-  cmd.Stdout = os.Stdout
-  cmd.Stderr = os.Stderr
+	cmd.Stdin = os.Stdin
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
 	check(cmd.Run())
 
 	entry, err := ioutil.ReadFile(f.Name())
 	check(err)
 
-  if len(*name) == 0 {
-    *name = string(firstLine(entry))
-  }
-  fmt.Println(*name)
+	if len(*name) == 0 {
+		*name = string(firstLine(entry))
+	}
+	fmt.Println(*name)
 	fmt.Println(string(entry))
 
-  check(os.Remove(f.Name()))
+	check(os.Remove(f.Name()))
 }

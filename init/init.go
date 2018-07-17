@@ -22,4 +22,6 @@ func Init(args []string) {
 
 	check(os.Chdir(*directory))
 	check(os.Mkdir(".diary", os.ModeDir|os.ModePerm))
+	check(os.Mkdir(".diary/entries", os.ModeDir|os.ModePerm))
+	check(os.Mkdir(".diary/index", os.ModeDir|os.ModePerm))
 }

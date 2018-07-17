@@ -10,7 +10,7 @@ import (
 
 func main() {
 	flag.Parse()
-  args := os.Args[1:]
+	args := os.Args[1:]
 	switch flag.Arg(0) {
 	case "init":
 		create.Init(args)
