@@ -2,6 +2,7 @@ package entry
 
 import (
 	"bytes"
+	"diary/search"
 	"diary/utils"
 	"flag"
 	"io/ioutil"
